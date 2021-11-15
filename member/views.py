@@ -4,10 +4,26 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
+from .form import CustomUserCreation
+
 
 # Create your views here.
-def create(request):
-    return HttpResponse('Hello World!!!')
+def member_register(request):
+    form = CustomUserCreation()
+    if request.method == "POST":
+        form = CustomUserCreation(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.username = user.username.lower()
+            user.email = user.email.lower()
+            user.save()
+
+            # mutiple autentication you should choose one
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            return redirect('index')
+
+    context = {'form': form}
+    return render(request, 'member/register.html', context)
 
 def member_login(request):
     if request.method == "POST":
