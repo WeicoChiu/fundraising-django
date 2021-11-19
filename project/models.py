@@ -39,7 +39,9 @@ class Project(models.Model):
     description = models.TextField(blank=True)
     goal = models.IntegerField(validators=[MinValueValidator(1, 'goal should be greater than zero')],
                                default=0)
-    image = models.ImageField(blank=True)
+    image = models.ImageField(blank= True, default='default.jpg')
+    total_donate = models.IntegerField(default=0)
+    count_donate = models.IntegerField(default=0)
 
     class Meta:
         ordering = ('title', )
@@ -50,9 +52,9 @@ class Project(models.Model):
         return self.title
 
 class ProjectSupport(models.Model):
-    project = models.ForeignKey(Project,
-                                on_delete=models.CASCADE,
-                                related_name='projectsupports')
+    project = models.OneToOneField(Project,
+                                   on_delete=models.CASCADE,
+                                   related_name='projectsupport')
     name = models.CharField(max_length=50)
     description = models.TextField(blank=True)
     price = models.IntegerField(validators=[MinValueValidator(1, 'price must be greater than 0')],
@@ -73,10 +75,10 @@ class Pleadge(models.Model):
     ]
     user = models.ForeignKey(User,
                             on_delete=models.CASCADE)
-    projectsupport = models.OneToOneField(ProjectSupport,
-                                          null=True,
-                                          on_delete=models.SET_NULL,
-                                          related_name='pleadge')
+    projectsupport = models.ForeignKey(ProjectSupport,
+                                       null=True,
+                                       on_delete=models.SET_NULL,
+                                       related_name='pleadge')
     projectName = models.CharField(max_length=50)
     price = models.IntegerField(validators=[MinValueValidator(1, 'price must be greater than 0')],
                                 default=0)

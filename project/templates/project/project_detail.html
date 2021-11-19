@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="project_show" style="margin: 58px auto;">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-12 col-md-8">
+        <img src="{{ project.image.url }}" class="img-fluid">
+      </div>
+
+      <div class="col-12 col-md-4">
+        <div class="card" style="width: 100%;">
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ project.title }}
+            </h5>
+            <div class="card-text">
+              <h3>贊助目標: NT$ {{ project.goal }}</h3>
+              <br/>
+              <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuenow="70"
+                aria-valuemin="0" aria-valuemax="100" style="width:70%">
+                  70%
+                </div>
+              </div>
+              <br />
+              <p>已經有 {{ project.count_donate }} 個人贊助</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin: 32px auto;">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-12 col-md-8">
+         <div class="project-description">
+          <hr/>
+          <p class="card-text" style="font-size:24px; line-height=2">{{ project.description }}</p>
+         </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+            <section>
+              <form action="" method="POST">
+                <h3>{{ projectsupport.name }}</h3>
+                <h5>NT$ {{ projectsupport.price }} / 每單位</h5>
+                <div>
+                  {{ projectsupport.description }}
+                </div>
+                <input type="hidden" name="project_support_id" value="{{ project.projectsupport.pk }}">
+
+                <div class="form-group">
+                  <label for="quantity">贊助數量</label>
+                  <input type="number" class="form-control" id="quantity" name="quantity" placeholder="1 ~ 10" max="10" min="1" value="1">
+                </div>
+
+                <div class="clearfix mt-2">
+                  <input class="btn btn-info float-right" type="submit" value="贊助">
+                </div>
+              </form>
+              <hr>
+            </section>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock content %}

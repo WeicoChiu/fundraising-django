@@ -15,6 +15,7 @@ class CategoryAdmin(admin.ModelAdmin):
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('projectowner', 'category', 'title', 'description', 'goal')
+    exclude = ('total_donate', 'count_donate')
 
 @admin.register(ProjectSupport)
 class ProjectSupportAdmin(admin.ModelAdmin):
