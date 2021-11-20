@@ -6,9 +6,9 @@
     </button>
 
     <div class="collapse navbar-collapse justify-content-end" id="navbarText">
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success text-nowrap" type="submit">搜尋</button>
+      <form class="d-flex" action="{% url 'search' %}" method="get">
+        <input class="form-control me-2" type="text" placeholder="Search" name="search" aria-label="Search">
+        <input class="btn btn-outline-success text-nowrap" type="submit" value="搜尋">
       </form>
 
       <ul class="navbar-nav mb-2 mb-lg-0">

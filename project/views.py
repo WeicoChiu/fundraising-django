@@ -5,6 +5,7 @@ from astroid.protocols import instance_class_infer_binary_op
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+from django.db.models import Q
 
 from .form import DonatePlanForm, ProjectCreationForm
 from .models import Category, Pleadge, Project, ProjectOwner, ProjectSupport
@@ -15,6 +16,18 @@ def index(request):
     projects = Project.objects.filter(status='published')
     context = {'projects': projects}
     return render(request, 'base.html', context)
+
+def search(request):
+    if request.GET.get('search'):
+        search = request.GET.get('search')
+        projects = Project.objects.filter(Q(status='published') &
+                                          Q(title__icontains=search) |
+                                          Q(description__icontains=search)
+                                        ).distinct()
+        context = {'projects': projects, 'search': search}
+        return render(request, 'project/search.html', context)
+    else:
+      return redirect('index')
 
 def show_category(request, id):
     category = Category.objects.get(id=id)
