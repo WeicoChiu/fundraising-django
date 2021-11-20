@@ -23,8 +23,18 @@
                     <th scope="row"></th>
                     <td>{{ project.title }}</td>
                     <td>{{ project.description }}</td>
-                    <td>修改</td>
-                    <td>刪除</td>
+                    <td>
+                      <form class="form" action="{% url 'update_project' project.id %}" method="POST">
+                          {% csrf_token %}
+                          <input type="submit" value="修改" />
+                      </form>
+                    </td>
+                    <td>
+                      <form class="form" action="{% url 'delete_project' project.id %}" method="POST">
+                          {% csrf_token %}
+                          <input type="submit" value="刪除" />
+                      </form>
+                    </td>
                   </tr>
                 {% endfor %}
               </tbody>

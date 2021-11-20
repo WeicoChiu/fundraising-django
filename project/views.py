@@ -1,12 +1,14 @@
+from builtins import object
 from urllib import request
 
-from django.http import HttpResponse
-from django.shortcuts import render
-
-from .models import Category, Pleadge, Project, ProjectOwner
+from astroid.protocols import instance_class_infer_binary_op
 from django.contrib.auth.decorators import login_required
-from .form import ProjectCreationForm, DonatePlanForm
-from django.shortcuts import redirect
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
+
+from .form import DonatePlanForm, ProjectCreationForm
+from .models import Category, Pleadge, Project, ProjectOwner
+
 
 # Create your views here.
 def index(request):
@@ -47,8 +49,33 @@ def create_project(request):
             project.save()
             return redirect('show_project')
 
-    print(form.errors)
     context = {
         'form': form,
     }
     return render(request, 'project/create_project.html', context)
+
+@login_required(redirect_field_name=None)
+def update_project(request, id):
+    project = Project.objects.get(id=id)
+    form = ProjectCreationForm(instance=project)
+
+    if request.method == 'POST':
+        form = ProjectCreationForm(request.POST, request.FILES, instance=project)
+        if form.is_valid():
+            project.save()
+            return redirect('show_project')
+
+    context = {
+        'form': form,
+        'project': project,
+    }
+    return render(request, 'project/update_project.html', context)
+
+@login_required(redirect_field_name=None)
+def delete_project(request, id):
+    project = Project.objects.get(id=id)
+    project.delete()
+
+    return redirect('show_project')
+
+

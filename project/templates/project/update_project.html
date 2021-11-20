@@ -1,0 +1,31 @@
+ {% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class='row'>
+    <div class='col-12'>
+      <div style="padding: 32px 0;">
+        <h3>修改專案</h3>
+        <br/>
+        <form action="{% url 'update_project' project.id %}" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          {% for field in form %}
+          <div class="form-group mb-2">
+            <label class="col-sm-2 col-form-label">{{ field.label}}</label><br/>
+            {{ field }}
+            <div style="color: red;">{{ field.errors }}</div>
+            <br/>
+          </div>
+          {% endfor %}
+
+          </hr>
+          <div class="actions" style="padding: 16px 0;">
+            <input class="btn btn-primary" type="submit" value="提交">
+          </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
