@@ -37,7 +37,7 @@ class Project(models.Model):
                                  related_name='projects')
     title = models.CharField(max_length=50)
     description = models.TextField(blank=True)
-    goal = models.IntegerField(validators=[MinValueValidator(1, 'goal should be greater than zero')],
+    goal = models.IntegerField(validators=[MinValueValidator(1, '目標金額必須大於 0 ')],
                                default=0)
     image = models.ImageField(blank= True, default='default.jpg')
     total_donate = models.IntegerField(default=0)
@@ -57,7 +57,7 @@ class ProjectSupport(models.Model):
                                    related_name='projectsupport')
     name = models.CharField(max_length=50)
     description = models.TextField(blank=True)
-    price = models.IntegerField(validators=[MinValueValidator(1, 'price must be greater than 0')],
+    price = models.IntegerField(validators=[MinValueValidator(1, '贊助價格必須大於 0')],
                                 default=0)
 
     class Meta:
@@ -80,16 +80,16 @@ class Pleadge(models.Model):
                                        on_delete=models.SET_NULL,
                                        related_name='pleadge')
     projectName = models.CharField(max_length=50)
-    price = models.IntegerField(validators=[MinValueValidator(1, 'price must be greater than 0')],
+    price = models.IntegerField(validators=[MinValueValidator(1, '目標金額必須大於 0')],
                                 default=0)
     issuedate = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=50,
                               choices=STATUS_CHOICES,
                               default='unpaid')
     supportname = models.CharField(max_length=50)
-    supportprice = models.IntegerField(validators=[MinValueValidator(1, 'price must be greater than 0')],
+    supportprice = models.IntegerField(validators=[MinValueValidator(1, '目標金額必須大於 0')],
                                        default=0)
-    quantity = models.IntegerField(validators=[MinValueValidator(1, 'quantity must greater than 0')],
+    quantity = models.IntegerField(validators=[MinValueValidator(1, '數量必須大於 0')],
                                    default=1)
 
     class Meta:

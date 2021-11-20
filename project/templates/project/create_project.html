@@ -1,44 +1,31 @@
-{% extends "base.html" %}
+ {% extends "base.html" %}
+
 {% block content %}
 <div class="container">
-  <div class="row">
-    <div class="col-12">
-      <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade show active" id="project-list" role="tabpanel" aria-labelledby="nav-home-tab" style="min-height: 800px;">
-          <div style="margin: 32px auto;">
-            <h3>所有募資專案：</h3>
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th scope="col"></th>
-                  <th scope="col">名稱</th>
-                  <th scope="col">敘述</th>
-                  <th scope="col"></th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for project in  projects %}
-                  <tr>
-                    <th scope="row"></th>
-                    <td>{{ project.title }}</td>
-                    <td>{{ project.description }}</td>
-                    <td>修改</td>
-                    <td>刪除</td>
-                  </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-            <div class="clearfix">
-              <form action="" method="POST">
-                <input class="btn btn-info float-right" type="submit" value="新增">
-              </form>
-            </div>
+  <div class='row'>
+    <div class='col-12'>
+      <div style="padding: 32px 0;">
+        <h3>新增專案</h3>
+        <br/>
+        <form action="{% url 'create_project' %}" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          {% for field in form %}
+          <div class="form-group mb-2">
+            <label class="col-sm-2 col-form-label">{{ field.label}}</label><br/>
+            {{ field }}
+            <div style="color: red;">{{ field.errors }}</div>
             <br/>
           </div>
-        </div>
+          {% endfor %}
+
+          </hr>
+          <div class="actions" style="padding: 16px 0;">
+            <input class="btn btn-primary" type="submit" value="提交">
+          </div>
+      </form>
       </div>
     </div>
   </div>
 </div>
+
 {% endblock content %}

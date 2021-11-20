@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="project-list" role="tabpanel" aria-labelledby="nav-home-tab" style="min-height: 800px;">
+          <div style="margin: 32px auto;">
+            <h3>所有募資專案：</h3>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">名稱</th>
+                  <th scope="col">敘述</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for project in  projects %}
+                  <tr>
+                    <th scope="row"></th>
+                    <td>{{ project.title }}</td>
+                    <td>{{ project.description }}</td>
+                    <td>修改</td>
+                    <td>刪除</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <div class="clearfix">
+              <a class="btn btn-info float-right" href="{% url 'create_project' %}">新增</a>
+            </div>
+            <br/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
