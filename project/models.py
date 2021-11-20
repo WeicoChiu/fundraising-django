@@ -29,6 +29,10 @@ class Category(models.Model):
       return self.name
 
 class Project(models.Model):
+    STATUS = (
+        ('draft', '尚未設定贊助方案'),
+        ('published', '募資上架')
+    )
     projectowner = models.ForeignKey(ProjectOwner,
                                      on_delete=models.CASCADE,
                                      related_name='projects')
@@ -37,9 +41,12 @@ class Project(models.Model):
                                  related_name='projects')
     title = models.CharField(max_length=50)
     description = models.TextField(blank=True)
+    status = models.CharField(max_length=10,
+                              choices=STATUS,
+                              default='draft' )
     goal = models.IntegerField(validators=[MinValueValidator(1, '目標金額必須大於 0 ')],
                                default=0)
-    image = models.ImageField(blank= True, default='default.jpg')
+    image = models.ImageField(blank= True, default='default_medium.jpg')
     total_donate = models.IntegerField(default=0)
     count_donate = models.IntegerField(default=0)
 

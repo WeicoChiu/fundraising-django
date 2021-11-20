@@ -13,6 +13,7 @@
                   <th scope="col"></th>
                   <th scope="col">名稱</th>
                   <th scope="col">敘述</th>
+                  <th scope="col">狀態</th>
                   <th scope="col"></th>
                   <th scope="col"></th>
                 </tr>
@@ -23,6 +24,7 @@
                     <th scope="row"></th>
                     <td>{{ project.title }}</td>
                     <td>{{ project.description }}</td>
+                    <td>{{ project.get_status_display }}</td>
                     <td>
                       <form class="form" action="{% url 'update_project' project.id %}">
                           <input type="submit" value="修改" />

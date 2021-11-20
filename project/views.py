@@ -7,15 +7,20 @@ from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
 from .form import DonatePlanForm, ProjectCreationForm
-from .models import Category, Pleadge, Project, ProjectOwner
+from .models import Category, Pleadge, Project, ProjectOwner, ProjectSupport
 
 
 # Create your views here.
 def index(request):
-    projects = Project.objects.all()
-
+    projects = Project.objects.filter(status='published')
     context = {'projects': projects}
     return render(request, 'base.html', context)
+
+def show_category(request, id):
+    category = Category.objects.get(id=id)
+    projects = category.projects.all()
+    context = {'projects': projects}
+    return render(request, 'project/show_category.html', context)
 
 def project_detail(request, id):
     project = Project.objects.get(id=id)
@@ -47,7 +52,7 @@ def create_project(request):
             projectowner = ProjectOwner.objects.get(user_id=request.user.id)
             project.projectowner = projectowner
             project.save()
-            return redirect('show_project')
+            return redirect('create_projectsupport', id=project.id)
 
     context = {
         'form': form,
@@ -78,4 +83,25 @@ def delete_project(request, id):
 
     return redirect('show_project')
 
+
+@login_required(redirect_field_name=None)
+def create_projectsupport(request, id):
+    form = DonatePlanForm()
+    project = Project.objects.get(id=id)
+
+    if request.method == 'POST':
+        form = DonatePlanForm(request.POST)
+        if form.is_valid():
+            projectsupport = form.save(commit=False)
+            projectsupport.project = project
+            projectsupport.save()
+            project.status = 'published'
+            project.save()
+            return redirect('index')
+
+    context = {
+        'form': form,
+        'project': project,
+    }
+    return render(request, 'project/create_projectsupport.html', context)
 

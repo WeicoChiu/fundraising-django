@@ -1,4 +1,4 @@
- {% extends "base.html" %}
+{% extends "base.html" %}
 
 {% block content %}
 <div class="container">
@@ -22,7 +22,33 @@
           <div class="actions" style="padding: 16px 0;">
             <input class="btn btn-primary" type="submit" value="提交">
           </div>
-      </form>
+        </form>
+
+          <h3>贊助方案：</h3>
+          {% if project.projectsupport %}
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">贊助名稱</th>
+                <th scope="col">贊助描述</th>
+                <th scope="col">金額</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <th scope="row"></th>
+                  <td>{{ project.projectsupport.name }}</td>
+                  <td>{{ project.projectsupport.description }}</td>
+                  <td>{{ project.projectsupport.price }}</td>
+                </tr>
+            </tbody>
+          </table>
+          {% else %}
+          <form class="form" action="{% url 'create_projectsupport' project.id %}">
+              <input class="btn btn-primary" type="submit" value="新增" />
+          </form>
+          {% endif %}
       </div>
     </div>
   </div>

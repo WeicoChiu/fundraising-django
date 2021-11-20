@@ -1,13 +1,13 @@
- {% extends "base.html" %}
+{% extends "base.html" %}
 
 {% block content %}
 <div class="container">
   <div class='row'>
     <div class='col-12'>
       <div style="padding: 32px 0;">
-        <h3>新增專案</h3>
+        <h3>新增: </h3>
         <br/>
-        <form action="{% url 'create_project' %}" method="POST" enctype="multipart/form-data">
+        <form action="{% url 'create_projectsupport' project.id %}" method="POST" enctype="multipart/form-data">
           {% csrf_token %}
           {% for field in form %}
           <div class="form-group mb-2">
@@ -27,5 +27,4 @@
     </div>
   </div>
 </div>
-
 {% endblock content %}

@@ -22,6 +22,8 @@ urlpatterns = [
     path('<int:id>/', views.project_detail, name='project_detail'),
     path('show/', views.show_project, name='show_project'),
     path('create/', views.create_project, name='create_project'),
+    path('caregory/<int:id>/', views.show_category, name='show_category'),
     path('update/<int:id>/', views.update_project, name='update_project'),
-    path('delete/<int:id>/', views.delete_project, name='delete_project')
+    path('delete/<int:id>/', views.delete_project, name='delete_project'),
+    path('create-projectsupport/<int:id>', views.create_projectsupport, name='create_projectsupport'),
 ]
