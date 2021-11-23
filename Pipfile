@@ -8,6 +8,7 @@ django = "==3.2.5"
 pylint = "*"
 pylint-django = "*"
 pillow = "*"
+gunicorn = "*"
 
 [dev-packages]
 
