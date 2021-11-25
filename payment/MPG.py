@@ -1,8 +1,9 @@
 VERSION = '1.6'
-
 MERCHANT_ID = 'MS326734846'
-
 HASH_KEY = '4HkT7ttXTsNYjmNaN41gqCavyFtgVuu2'
 HASH_IV = 'CD499YjBmLD4DREP'
-
 RESPONDTYPE = 'JSON'
+RETURN_URL = 'http://34.81.213.106/payment/list/'
+NOTIFY_URL = 'http://34.81.213.106/payment/success/'
+CLIENTBACK_URL = 'http://34.81.213.106/'
+CUSTOMER_URL = 'http://34.81.213.106/payment/success/'

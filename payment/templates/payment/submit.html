@@ -1,0 +1,9 @@
+<form id="mpg_form" action="https://ccore.newebpay.com/MPG/mpg_gateway" accept-charset="utf-8" method="post">
+  <input type='hidden' name='MerchantID' value='{{ merchantid }}'>
+  <input type='hidden' name='TradeInfo' value='{{ tradeinfo }}'>
+  <input type='hidden' name='TradeSha' value='{{ tradesha }}'>
+  <input type="hidden" name='Version' value='{{ version }}'>
+</form>
+<script>
+    document.getElementById("mpg_form").submit()
+</script>

@@ -1,12 +1,11 @@
-from MPG import *
+from payment.MPG import *
 from datetime import datetime
 from base64 import b64encode
 from Crypto.Cipher import AES
 import hashlib
 
 class NewWebPayment:
-    def __init__(self, merchant_order_no, amt,
-                    item_descr):
+    def __init__(self, merchant_order_no, amt, item_descr):
         self.merchant_order_no = merchant_order_no
         self.amt = amt
         self.item_descr = item_descr
@@ -19,22 +18,28 @@ class NewWebPayment:
             f"Version={VERSION}&"
             f"MerchantOrderNo={self.merchant_order_no}&"
             f"Amt={self.amt}&"
-            f"ItemDesc={self.item_descr}"
+            f"ItemDesc={self.item_descr}&"
+            f"CREDIT=1&"
+            f"VACC=1&"
+            f"ReturnURL={RETURN_URL}&"
+            f"NotifyURL={NOTIFY_URL}&"
+            f"ClientBackURL={CLIENTBACK_URL}&"
+            f"CustomerURL={CUSTOMER_URL}"
             )
 
         return data
 
-    def get_trade_sha(self, encrypt_trade_info):
+    def get_trade_sha(self, key, iv, encrypt_trade_info):
         raw_trade_sha =(
-            f"HashKey={HASH_KEY}&"
+            f"HashKey={key}&"
             f"{encrypt_trade_info}&"
-            f"HashIV={HASH_IV}"
+            f"HashIV={iv}"
             )
         return raw_trade_sha
 
     @staticmethod
     def addpadding(raw_trade_info, blocksize=32):
-        length = len(raw_trade_info)
+        length = len(raw_trade_info.encode('utf8'))
         padding = blocksize - (length % blocksize)
         raw_trade_info += chr(padding) * padding
         return raw_trade_info
@@ -49,7 +54,7 @@ class NewWebPayment:
 
     # key and iv must be bytes type, remember to covert before
     @staticmethod
-    def encrpt(raw_trade_info_pad, key, iv):
+    def encrypt(raw_trade_info_pad, key, iv):
         cipher = AES.new(key, AES.MODE_CBC, iv=iv)
         ct_bytes = cipher.encrypt(raw_trade_info_pad)
         encrypt_trade_info = ct_bytes.hex()
@@ -60,8 +65,7 @@ class NewWebPayment:
     def sha256hex(raw_trade_sha):
         bin_trade_sha = raw_trade_sha.encode('ascii')
         trade_sha = hashlib.sha256(bin_trade_sha).hexdigest()
-        print(trade_sha)
-        return trade_sha
+        return trade_sha.upper()
 
     @staticmethod
     def decrypt(encrypt_trade_info, key, iv):
