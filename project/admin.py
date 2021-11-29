@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Category, Pleadge, Project, ProjectOwner, ProjectSupport
+from .models import Category, Project, ProjectOwner, ProjectSupport, Pledge
 
 
 # Register your models here.
@@ -14,13 +14,12 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('projectowner', 'category', 'title', 'description', 'goal')
-    exclude = ('total_donate', 'count_donate')
+    list_display = ('projectowner', 'category', 'title', 'description', 'goal', 'total_donate', 'count_donate')
 
 @admin.register(ProjectSupport)
 class ProjectSupportAdmin(admin.ModelAdmin):
     list_display = ('project', 'name', 'description', 'price')
 
-@admin.register(Pleadge)
-class PleadgeAdmin(admin.ModelAdmin):
+@admin.register(Pledge)
+class PledgeAdmin(admin.ModelAdmin):
     list_display = ('user', 'projectsupport', 'projectName', 'price', 'issuedate', 'status', 'supportname', 'supportprice', 'quantity')

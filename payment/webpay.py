@@ -29,7 +29,8 @@ class NewWebPayment:
 
         return data
 
-    def get_trade_sha(self, key, iv, encrypt_trade_info):
+    @staticmethod
+    def get_trade_sha(key, iv, encrypt_trade_info):
         raw_trade_sha =(
             f"HashKey={key}&"
             f"{encrypt_trade_info}&"
@@ -58,7 +59,6 @@ class NewWebPayment:
         cipher = AES.new(key, AES.MODE_CBC, iv=iv)
         ct_bytes = cipher.encrypt(raw_trade_info_pad)
         encrypt_trade_info = ct_bytes.hex()
-        print(encrypt_trade_info)
         return encrypt_trade_info
 
     @staticmethod

@@ -28,6 +28,10 @@
           <a class="nav-link active" aria-current="page" href="{% url 'show_project'%}">我想募資</a>
         </li>
 
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'payment_list'%}">我的贊助</a>
+        </li>
+
         {% if user.is_authenticated %}
         <li class="nav-item">
           <span class="nav-link active" aria-current="page" cursor: pointer>

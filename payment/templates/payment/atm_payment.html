@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div style="margin: 32px auto;">
+        <h3>{{ pledge.projectName }}</h3>
+        <div style="font-size: 24px;">
+          <p>方案：{{ pledge.supportname }}</p>
+          <p>單號：{{ pledge.merchant_order_no }}</p>
+          <p>單價：{{ pledge.supportprice }}</p>
+          <p>數量：{{ pledge.quantity }}</p>
+          <p>總價：{{ pledge.payment.total }}</p>
+          <p>
+            贊助內容:{{ pledge.projectsupport.description }}
+          </p>
+          <hr/>
+          <p> 付款資訊 </p>
+              <p>繳費代碼：{{ pledge.payment.bank_code}}-{{ pledge.payment.code_no }}</p>
+              <p>付款截止日：{{ pledge.payment.expired_date }}</p>
+          <hr/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

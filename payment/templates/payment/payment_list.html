@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+        <div style="margin: 32px auto;">
+          <h3>我的贊助：</h3>
+          <br/>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">募資專案</th>
+                <th scope="col">贊助方案</th>
+                <th scope="col">價格</th>
+                <th scope="col">狀態</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for pledge in pledges %}
+            <tr>
+              <td>{{ pledge.projectName }}</td>
+              <td>{{ pledge.supportname }}</td>
+              <td>{{ pledge.price }}</td>
+              <td>{{ pledge.get_status_display }}</td>
+              {% if pledge.status == 'expired' %}
+              <td>
+                  超過付款時間
+              </td>
+              {% elif pledge.status == 'uncommit' %}
+              <td>
+                  訂單未成立
+              </td>
+              {% else %}
+              <td>
+                <a href="{% url 'status' pledge.id %}">查看</a>
+              </td>
+              {% endif %}
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

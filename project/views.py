@@ -8,7 +8,7 @@ from django.shortcuts import redirect, render
 from django.db.models import Q
 
 from .form import DonatePlanForm, ProjectCreationForm
-from .models import Category, Pleadge, Project, ProjectOwner, ProjectSupport
+from .models import Category, Pledge, Project, ProjectOwner, ProjectSupport
 
 
 # Create your views here.
@@ -35,6 +35,7 @@ def show_category(request, id):
     context = {'projects': projects}
     return render(request, 'project/show_category.html', context)
 
+@login_required(redirect_field_name=None)
 def project_detail(request, id):
     project = Project.objects.get(id=id)
     projectsupport = project.projectsupport
@@ -117,4 +118,3 @@ def create_projectsupport(request, id):
         'project': project,
     }
     return render(request, 'project/create_projectsupport.html', context)
-

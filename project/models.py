@@ -74,34 +74,36 @@ class ProjectSupport(models.Model):
     def __str__(self):
         return self.name
 
-class Pleadge(models.Model):
+class Pledge(models.Model):
     STATUS_CHOICES = [
-        ('unpaid', 'Unpaid'),
-        ('paid', 'Paid'),
-        ('expired', 'Expired'),
+        ('uncommit', '未成立'),
+        ('unpaid', '未付款'),
+        ('paid', '付款'),
+        ('expired', '失效'),
     ]
     user = models.ForeignKey(User,
                             on_delete=models.CASCADE)
     projectsupport = models.ForeignKey(ProjectSupport,
                                        null=True,
                                        on_delete=models.SET_NULL,
-                                       related_name='pleadge')
+                                       related_name='pledge')
     projectName = models.CharField(max_length=50)
     price = models.IntegerField(validators=[MinValueValidator(1, '目標金額必須大於 0')],
                                 default=0)
     issuedate = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=50,
                               choices=STATUS_CHOICES,
-                              default='unpaid')
+                              default='uncommit')
     supportname = models.CharField(max_length=50)
     supportprice = models.IntegerField(validators=[MinValueValidator(1, '目標金額必須大於 0')],
                                        default=0)
     quantity = models.IntegerField(validators=[MinValueValidator(1, '數量必須大於 0')],
                                    default=1)
+    merchant_order_no = models.CharField(max_length=50, blank=True)
 
     class Meta:
-        verbose_name = 'pleadge'
-        verbose_name_plural = 'pleadges'
+        verbose_name = 'pledge'
+        verbose_name_plural = 'pledges'
 
     def __str__(self):
         return "Donate for %s" % self.projectName

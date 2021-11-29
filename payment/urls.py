@@ -19,4 +19,9 @@ from . import views
 
 urlpatterns = [
     path('order/', views.order, name='order'),
+    path('list/', views.list, name='payment_list'),
+    path('notify/', views.notify, name='payment_notify'),
+    path('atm/', views.atm, name='payment_atm'),
+    path('status/<int:id>/', views.status, name='status'),
+    path('trading-finish/', views.trade_finish, name='trading-finish'),
 ]

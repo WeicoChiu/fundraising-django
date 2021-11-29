@@ -13,7 +13,7 @@ def form_to_newebpay(merchant_order_no, total, title):
                     HASH_KEY.encode('utf8'),
                     HASH_IV.encode('utf8')
                     )
-    raw_trade_sha = payment.get_trade_sha(
+    raw_trade_sha = NewWebPayment.get_trade_sha(
                         HASH_KEY,
                         HASH_IV,
                         trade_info
@@ -28,3 +28,24 @@ def form_to_newebpay(merchant_order_no, total, title):
     }
 
     return form_info
+
+def check_trade_sha(neweb_trade_info, neweb_trade_sha):
+    trade_sha_format = NewWebPayment.get_trade_sha(
+                       HASH_KEY,
+                       HASH_IV,
+                       neweb_trade_info
+                       )
+    origin_trade_sha = NewWebPayment.sha256hex(trade_sha_format)
+
+    if neweb_trade_sha == origin_trade_sha:
+        return True
+    else:
+        return None
+
+def decrypt_unpad(neweb_trade_info):
+    decrypt_trade_info = NewWebPayment.decrypt(
+                             neweb_trade_info,
+                             HASH_KEY.encode('utf8'),
+                             HASH_IV.encode('utf8'))
+    trade_info = NewWebPayment.unpadding(decrypt_trade_info)
+    return trade_info.decode('utf8')
