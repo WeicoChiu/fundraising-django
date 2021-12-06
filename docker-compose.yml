@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  fundraising-django:
+    build:
+      context: .
+      dockerfile: compose/production/django/Dockerfile
+    image: fundraising-django
+    container_name: fundraising-django
+    hostname: fundraising-django
+    #  Sets the working directory of the container that is created
+    working_dir: /app
+    env_file:
+      - compose/production/django/.env
+    ports:
+      - "8000:8000"
+    command: ./start.sh
+    depends_on:
+      - mysql
+
+  mysql:
+    build:
+      context: .
+      dockerfile: compose/production/mysql/Dockerfile
+    image: fundraising-mysql
+    container_name: fundraising-mysql
+    hostname: mysql
+    env_file:
+      - compose/production/mysql/.env
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./compose/production/mysql/origin.sql:/docker-entrypoint-initdb.d/origin.sql
