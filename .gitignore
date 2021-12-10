@@ -89,3 +89,6 @@ db.sqlite3
 
 ### vscode
 .vscode
+
+### GCS KEY
+credential.json

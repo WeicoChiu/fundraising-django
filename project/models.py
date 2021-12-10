@@ -28,6 +28,10 @@ class Category(models.Model):
     def __str__(self):
       return self.name
 
+def generate_image_position(self, filename):
+    image_url = "images/%s/%s" % (self.projectowner.user, filename)
+    return image_url
+
 class Project(models.Model):
     STATUS = (
         ('draft', '尚未設定贊助方案'),
@@ -46,7 +50,9 @@ class Project(models.Model):
                               default='draft' )
     goal = models.IntegerField(validators=[MinValueValidator(1, '目標金額必須大於 0 ')],
                                default=0)
-    image = models.ImageField(blank= True, default='default_medium.jpg')
+    image = models.ImageField(blank= True,
+                              default='images/default_medium.jpg',
+                              upload_to=generate_image_position)
     total_donate = models.IntegerField(default=0)
     count_donate = models.IntegerField(default=0)
 
