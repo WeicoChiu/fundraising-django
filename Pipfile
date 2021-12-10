@@ -12,6 +12,8 @@ gunicorn = "*"
 pycryptodome = "*"
 supervisor = "*"
 mysqlclient = "*"
+django-storages = "*"
+google-cloud-storage = "*"
 
 [dev-packages]
 
