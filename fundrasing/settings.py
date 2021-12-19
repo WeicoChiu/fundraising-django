@@ -44,7 +44,10 @@ INSTALLED_APPS = [
     'member.apps.MemberConfig',
     'project.apps.ProjectConfig',
     'payment.apps.PaymentConfig',
-    'storages'
+    'api.apps.ApiConfig',
+    'storages',
+    'rest_framework',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
@@ -151,3 +154,26 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # }
 
 LOGIN_URL = '/member/login/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ]
+}
+
+SWAGGER_SETTINGS = {
+   'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    }
+}
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+}

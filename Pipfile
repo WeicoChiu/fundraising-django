@@ -14,6 +14,9 @@ supervisor = "*"
 mysqlclient = "*"
 django-storages = "*"
 google-cloud-storage = "*"
+djangorestframework = "*"
+djangorestframework-simplejwt = "*"
+drf-yasg = "*"
 
 [dev-packages]
 

@@ -21,7 +21,7 @@ class Category(models.Model):
                             db_index=True)
 
     class Meta:
-        ordering = ('name',)
+        ordering = ('pk',)
         verbose_name = 'category'
         verbose_name_plural = 'categories'
 
