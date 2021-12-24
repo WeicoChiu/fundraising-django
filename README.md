@@ -10,7 +10,7 @@ Django 實作募資網站(Nginx + Supervisor + Gunicorn + Django + MySQL)
 + 使用者新增、刪除或修改募資方案
 + 募資方案關鍵字搜尋
 + 查看目前已贊助的方案
-+ 第三方金流支付(信用卡或ATM轉帳)
++ 藍新金流作為第三方金流支付(信用卡或ATM轉帳)
 + 上傳圖片檔案至 Cloud Storage(GCP)
 + [Restful API(部分功能實作)](https://github.com/WeicoChiu/fundraising-django/tree/restfulAPI)
 	+ JWT 認證機制
@@ -22,6 +22,7 @@ Django 實作募資網站(Nginx + Supervisor + Gunicorn + Django + MySQL)
 
 + 後端:
 	+ Django(3.2.5)
+    	+ django-storages
 	+ DjangoRest Framework(3.1)
 		+ Simple JWT
 		+ dry-yasg
@@ -38,6 +39,7 @@ Django 實作募資網站(Nginx + Supervisor + Gunicorn + Django + MySQL)
 	+ GCP
 		+ Cloud Computing(Ubuntu virtual machine)
 		+ Cloud Storage(static files)
+			+ google-cloud-storage
 		+ Cloud SQL
 
 網站預覽
@@ -48,9 +50,11 @@ Django 實作募資網站(Nginx + Supervisor + Gunicorn + Django + MySQL)
 ---
 [![](https://i.imgur.com/WCkHrZo.png)](https://drawsql.app/myself-69/diagrams/donaterasing)
 
-安裝
+安裝教學
 ---
-[部署過程](https://hackmd.io/@Weico/rJOEM6fit)
+[開發版部署](https://hackmd.io/@Weico/rJOEM6fit)<br>
+上線版部署 [TODO]<br>
+Docker 版部署 [TODO]
 
 參考資料
 ---
