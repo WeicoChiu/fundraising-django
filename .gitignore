@@ -92,3 +92,9 @@ db.sqlite3
 
 ### GCS KEY
 credential.json
+
+### NeWebPay
+MPG.py
+
+### static image files
+static/

@@ -36,9 +36,9 @@ Django 實作募資網站(Nginx + Supervisor + Gunicorn + Django + MySQL)
 	+ Gunicorn
 	+ Docker
 	+ GCP
-		+ Cloud Computing
+		+ Cloud Computing(Ubuntu virtual machine)
+		+ Cloud Storage(static files)
 		+ Cloud SQL
-		+ Cloud Storage
 
 網站預覽
 ---
@@ -48,11 +48,9 @@ Django 實作募資網站(Nginx + Supervisor + Gunicorn + Django + MySQL)
 ---
 [![](https://i.imgur.com/WCkHrZo.png)](https://drawsql.app/myself-69/diagrams/donaterasing)
 
-
 安裝
 ---
-TODO
-
+[部署過程](https://hackmd.io/@Weico/rJOEM6fit)
 
 參考資料
 ---
