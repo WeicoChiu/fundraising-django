@@ -28,4 +28,4 @@ urlpatterns = [
     path('project/', include('project.urls')),
     path('payment/', include('payment.urls')),
     path('api/', include('api.urls')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
